@@ -33,10 +33,20 @@ export default function PaymentMethodScreen() {
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <div className="container small-container">
         <Helmet>
-          <title>Payment Method</title>
+          <title>支付方式</title>
         </Helmet>
-        <h1 className="my-3">Payment Method</h1>
+        <h1 className="my-3">支付方式</h1>
         <Form onSubmit={submitHandler}>
+        <div className="mb-3">
+            <Form.Check
+              type="radio"
+              id="Alipay"
+              label="Alipay"
+              value="Alipay"
+              checked={paymentMethodName === 'Alipay'}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            />
+          </div>
           <div className="mb-3">
             <Form.Check
               type="radio"

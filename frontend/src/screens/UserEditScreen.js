@@ -103,7 +103,7 @@ export default function UserEditScreen() {
       ) : (
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>姓名</Form.Label>
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -111,7 +111,7 @@ export default function UserEditScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="email">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>邮箱</Form.Label>
             <Form.Control
               value={email}
               type="email"

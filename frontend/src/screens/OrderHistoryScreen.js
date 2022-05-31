@@ -52,10 +52,10 @@ export default function OrderHistoryScreen() {
   return (
     <div>
       <Helmet>
-        <title>Order History</title>
+        <title>订单记录</title>
       </Helmet>
 
-      <h1>Order History</h1>
+      <h1>订单记录</h1>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (

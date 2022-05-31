@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "alipay-sdk": "^3.2.0",
+    "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.28.1",
     "dotenv": "^10.0.0",
@@ -23,6 +25,8 @@
     "streamifier": "^0.1.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
     "nodemon": "^2.0.15"
   }
 }

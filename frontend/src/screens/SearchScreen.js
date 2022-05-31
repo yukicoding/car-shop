@@ -134,7 +134,7 @@ export default function SearchScreen() {
       </Helmet>
       <Row>
         <Col md={3}>
-          <h3>Department</h3>
+          <h3>种类</h3>
           <div>
             <ul>
               <li>
@@ -158,7 +158,7 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Price</h3>
+            <h3>价格</h3>
             <ul>
               <li>
                 <Link
@@ -181,7 +181,7 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Avg. Customer Review</h3>
+            <h3>客户评价</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
@@ -240,10 +240,10 @@ export default function SearchScreen() {
                       navigate(getFilterUrl({ order: e.target.value }));
                     }}
                   >
-                    <option value="newest">Newest Arrivals</option>
-                    <option value="lowest">Price: Low to High</option>
-                    <option value="highest">Price: High to Low</option>
-                    <option value="toprated">Avg. Customer Reviews</option>
+                    <option value="newest">最近发布</option>
+                    <option value="lowest">价格: 从低到高</option>
+                    <option value="highest">价格: 从高到底</option>
+                    <option value="toprated">客户评价</option>
                   </select>
                 </Col>
               </Row>

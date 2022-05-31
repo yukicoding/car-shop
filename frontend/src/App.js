@@ -85,14 +85,14 @@ function App() {
               </Button>
 
               <LinkContainer to="/">
-                <Navbar.Brand>amazona</Navbar.Brand>
+                <Navbar.Brand>商城</Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
                 <Nav className="me-auto  w-100  justify-content-end">
                   <Link to="/cart" className="nav-link">
-                    Cart
+                    购物车
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -102,10 +102,10 @@ function App() {
                   {userInfo ? (
                     <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                       <LinkContainer to="/profile">
-                        <NavDropdown.Item>User Profile</NavDropdown.Item>
+                        <NavDropdown.Item>个人中心</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/orderhistory">
-                        <NavDropdown.Item>Order History</NavDropdown.Item>
+                        <NavDropdown.Item>订单记录</NavDropdown.Item>
                       </LinkContainer>
                       <NavDropdown.Divider />
                       <Link
@@ -151,7 +151,7 @@ function App() {
         >
           <Nav className="flex-column text-white w-100 p-2">
             <Nav.Item>
-              <strong>Categories</strong>
+              <strong>分类</strong>
             </Nav.Item>
             {categories.map((category) => (
               <Nav.Item key={category}>

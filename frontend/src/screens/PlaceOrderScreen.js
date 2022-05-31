@@ -85,37 +85,37 @@ export default function PlaceOrderScreen() {
     <div>
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
       <Helmet>
-        <title>Preview Order</title>
+        <title>订单信息</title>
       </Helmet>
-      <h1 className="my-3">Preview Order</h1>
+      <h1 className="my-3">订单信息</h1>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Shipping</Card.Title>
+              <Card.Title>购买人</Card.Title>
               <Card.Text>
-                <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
-                <strong>Address: </strong> {cart.shippingAddress.address},
+                <strong>姓名:</strong> {cart.shippingAddress.fullName} <br />
+                <strong>地址: </strong> {cart.shippingAddress.address},
                 {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
                 {cart.shippingAddress.country}
               </Card.Text>
-              <Link to="/shipping">Edit</Link>
+              <Link to="/shipping">编辑</Link>
             </Card.Body>
           </Card>
 
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Payment</Card.Title>
+              <Card.Title>支付</Card.Title>
               <Card.Text>
-                <strong>Method:</strong> {cart.paymentMethod}
+                <strong>支付方式:</strong> {cart.paymentMethod}
               </Card.Text>
-              <Link to="/payment">Edit</Link>
+              <Link to="/payment">编辑</Link>
             </Card.Body>
           </Card>
 
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Items</Card.Title>
+              <Card.Title>物品</Card.Title>
               <ListGroup variant="flush">
                 {cart.cartItems.map((item) => (
                   <ListGroup.Item key={item._id}>
@@ -136,37 +136,37 @@ export default function PlaceOrderScreen() {
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-              <Link to="/cart">Edit</Link>
+              <Link to="/cart">编辑</Link>
             </Card.Body>
           </Card>
         </Col>
         <Col md={4}>
           <Card>
             <Card.Body>
-              <Card.Title>Order Summary</Card.Title>
+              <Card.Title>价格明细</Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Items</Col>
+                    <Col>单价</Col>
                     <Col>${cart.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Shipping</Col>
+                    <Col>运费</Col>
                     <Col>${cart.shippingPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Tax</Col>
+                    <Col>税费</Col>
                     <Col>${cart.taxPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <strong> Order Total</strong>
+                      <strong> 产品总价</strong>
                     </Col>
                     <Col>
                       <strong>${cart.totalPrice.toFixed(2)}</strong>
@@ -180,7 +180,7 @@ export default function PlaceOrderScreen() {
                       onClick={placeOrderHandler}
                       disabled={cart.cartItems.length === 0}
                     >
-                      Place Order
+                      确定订单
                     </Button>
                   </div>
                   {loading && <LoadingBox></LoadingBox>}

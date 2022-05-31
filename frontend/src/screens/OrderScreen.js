@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer,useState } from 'react';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -14,8 +14,10 @@ import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
 import { toast } from 'react-toastify';
+import Modal from 'react-bootstrap/Modal'
 
 function reducer(state, action) {
+  console.log(state)
   switch (action.type) {
     case 'FETCH_REQUEST':
       return { ...state, loading: true, error: '' };
@@ -78,6 +80,7 @@ export default function OrderScreen() {
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
   function createOrder(data, actions) {
+    console.log(order)
     return actions.order
       .create({
         purchase_units: [
@@ -87,8 +90,20 @@ export default function OrderScreen() {
         ],
       })
       .then((orderID) => {
+        console.log(orderID)
         return orderID;
       });
+  }
+  async function createAliOrder  (){
+    console.log(order)
+    const req = await axios.post('/api/pay/pcpay',{
+      ...order
+    });
+    console.log(req)
+    if(req.data.url){
+      window.open(req.data.url)
+      dispatch({ type: 'PAY_REQUEST' });
+    }
   }
 
   function onApprove(data, actions) {
@@ -138,26 +153,27 @@ export default function OrderScreen() {
     ) {
       fetchOrder();
       if (successPay) {
+        console.log("successPay")
         dispatch({ type: 'PAY_RESET' });
       }
       if (successDeliver) {
         dispatch({ type: 'DELIVER_RESET' });
       }
     } else {
-      const loadPaypalScript = async () => {
-        const { data: clientId } = await axios.get('/api/keys/paypal', {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        });
-        paypalDispatch({
-          type: 'resetOptions',
-          value: {
-            'client-id': clientId,
-            currency: 'USD',
-          },
-        });
-        paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
-      };
-      loadPaypalScript();
+      // const loadPaypalScript = async () => {
+      //   const { data: clientId } = await axios.get('/api/keys/paypal', {
+      //     headers: { authorization: `Bearer ${userInfo.token}` },
+      //   });
+      //   paypalDispatch({
+      //     type: 'resetOptions',
+      //     value: {
+      //       'client-id': clientId,
+      //       currency: 'USD',
+      //     },
+      //   });
+      //   paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
+      // };
+      // loadPaypalScript();
     }
   }, [
     order,
@@ -168,6 +184,47 @@ export default function OrderScreen() {
     successPay,
     successDeliver,
   ]);
+
+  useEffect(()=>{
+       const timer = setInterval(() => {
+        if(order._id&&loadingPay){
+          axios.get(`/api/pay/query?order=${order._id}`).then(async (res)=>{
+
+            if(loadingPay&&res.data.result.status===2){
+              try {
+                const { data } = await axios.put(
+                  `/api/orders/${order._id}/pay`,
+                  {
+  
+                  },
+                  {
+                    headers: { authorization: `Bearer ${userInfo.token}` },
+                  }
+                );
+                dispatch({ type: 'PAY_SUCCESS', payload:data });
+                toast.success('Order is paid');
+                
+              } catch (error) {
+                dispatch({ type: 'PAY_FAIL', payload: getError(error) });
+                toast.error(getError(error));
+              }
+             
+            }
+          })
+        }
+        
+        
+      }, 3000);
+     
+    
+   return ()=>{
+     if(timer){
+      clearInterval(timer)
+
+     }
+   }
+
+  },[loadingPay])
 
   async function deliverOrderHandler() {
     try {
@@ -186,7 +243,7 @@ export default function OrderScreen() {
       dispatch({ type: 'DELIVER_FAIL' });
     }
   }
-
+console.log(order)
   return loading ? (
     <LoadingBox></LoadingBox>
   ) : error ? (
@@ -201,10 +258,10 @@ export default function OrderScreen() {
         <Col md={8}>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Shipping</Card.Title>
+              <Card.Title>送货信息</Card.Title>
               <Card.Text>
-                <strong>Name:</strong> {order.shippingAddress.fullName} <br />
-                <strong>Address: </strong> {order.shippingAddress.address},
+                <strong>姓名:</strong> {order.shippingAddress.fullName} <br />
+                <strong>地址: </strong> {order.shippingAddress.address},
                 {order.shippingAddress.city}, {order.shippingAddress.postalCode}
                 ,{order.shippingAddress.country}
                 &nbsp;
@@ -220,32 +277,32 @@ export default function OrderScreen() {
               </Card.Text>
               {order.isDelivered ? (
                 <MessageBox variant="success">
-                  Delivered at {order.deliveredAt}
+                  送至 {order.deliveredAt}
                 </MessageBox>
               ) : (
-                <MessageBox variant="danger">Not Delivered</MessageBox>
+                <MessageBox variant="danger">未发货</MessageBox>
               )}
             </Card.Body>
           </Card>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Payment</Card.Title>
+              <Card.Title>支付信息</Card.Title>
               <Card.Text>
-                <strong>Method:</strong> {order.paymentMethod}
+                <strong>支付方式:</strong> {order.paymentMethod}
               </Card.Text>
               {order.isPaid ? (
                 <MessageBox variant="success">
-                  Paid at {order.paidAt}
+                  已支付 {order.paidAt}
                 </MessageBox>
               ) : (
-                <MessageBox variant="danger">Not Paid</MessageBox>
+                <MessageBox variant="danger">未支付</MessageBox>
               )}
             </Card.Body>
           </Card>
 
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Items</Card.Title>
+              <Card.Title>物品</Card.Title>
               <ListGroup variant="flush">
                 {order.orderItems.map((item) => (
                   <ListGroup.Item key={item._id}>
@@ -269,33 +326,33 @@ export default function OrderScreen() {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={4}>
+        <Col md={4}> 
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Order Summary</Card.Title>
+              <Card.Title>价格明细</Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Items</Col>
+                    <Col>物品</Col>
                     <Col>${order.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Shipping</Col>
+                    <Col>运费</Col>
                     <Col>${order.shippingPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Tax</Col>
+                    <Col>税费</Col>
                     <Col>${order.taxPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <strong> Order Total</strong>
+                      <strong>订单总价</strong>
                     </Col>
                     <Col>
                       <strong>${order.totalPrice.toFixed(2)}</strong>
@@ -313,16 +370,22 @@ export default function OrderScreen() {
                           onApprove={onApprove}
                           onError={onError}
                         ></PayPalButtons>
+                        
+                        {/* 支付宝 */}
+                        <div style={{cursor:"pointer"}}>
+                        <img src="/images/alipay.png" onClick={createAliOrder}  />
+                        </div>
+                        
                       </div>
                     )}
-                    {loadingPay && <LoadingBox></LoadingBox>}
+                    {/* {loadingPay && <LoadingBox></LoadingBox>} */}
                   </ListGroup.Item>
                 )}
                 {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                   <ListGroup.Item>
                     {loadingDeliver && <LoadingBox></LoadingBox>}
                     <div className="d-grid">
-                      <Button type="button" onClick={deliverOrderHandler}>
+                      <Button variant="outline-primary" onClick={deliverOrderHandler}>
                         Deliver Order
                       </Button>
                     </div>
@@ -333,6 +396,16 @@ export default function OrderScreen() {
           </Card>
         </Col>
       </Row>
+    
+      <Modal show={loadingPay} fullscreen={'sm-down'} onHide={() => {
+        dispatch({ type: 'PAY_SUCCESS'})
+      }}>
+        <Modal.Header closeButton>
+          <Modal.Title>支付中</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><LoadingBox/></Modal.Body>
+      </Modal>
+    
     </div>
   );
 }

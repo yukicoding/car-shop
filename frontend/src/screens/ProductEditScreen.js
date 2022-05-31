@@ -183,7 +183,7 @@ export default function ProductEditScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Price</Form.Label>
+            <Form.Label>价格</Form.Label>
             <Form.Control
               value={price}
               onChange={(e) => setPrice(e.target.value)}
