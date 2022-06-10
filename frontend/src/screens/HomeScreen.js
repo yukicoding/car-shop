@@ -46,9 +46,9 @@ function HomeScreen() {
   return (
     <div>
       <Helmet>
-        <title>商城</title>
+        <title>啥都卖商城</title>
       </Helmet>
-      <h1>Product</h1>
+      <h1>商品列表</h1>
       <div className="products">
         {loading ? (
           <LoadingBox />

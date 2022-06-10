@@ -44,9 +44,9 @@ export default function SigninScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Sign In</title>
+        <title>登录</title>
       </Helmet>
-      <h1 className="my-3">Sign In</h1>
+      <h1 className="my-3">登录</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>邮箱</Form.Label>
@@ -65,7 +65,7 @@ export default function SigninScreen() {
           />
         </Form.Group>
         <div className="mb-3">
-          <Button type="submit">Sign In</Button>
+          <Button type="submit">登录</Button>
         </div>
         <div className="mb-3">
         还没有账号？

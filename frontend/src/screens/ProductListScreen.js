@@ -139,12 +139,12 @@ export default function ProductListScreen() {
     <div>
       <Row>
         <Col>
-          <h1>Products</h1>
+          <h1>商品管理</h1>
         </Col>
         <Col className="col text-end">
           <div>
             <Button type="button" onClick={createHandler}>
-              Create Product
+              新建商品
             </Button>
           </div>
         </Col>
@@ -163,11 +163,11 @@ export default function ProductListScreen() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th>ACTIONS</th>
+                <th>产品名</th>
+                <th>价格</th>
+                <th>分类</th>
+                <th>品牌</th>
+                <th>操作</th>
               </tr>
             </thead>
             <tbody>
@@ -184,7 +184,7 @@ export default function ProductListScreen() {
                       variant="light"
                       onClick={() => navigate(`/admin/product/${product._id}`)}
                     >
-                      Edit
+                      编辑
                     </Button>
                     &nbsp;
                     <Button
@@ -192,7 +192,7 @@ export default function ProductListScreen() {
                       variant="light"
                       onClick={() => deleteHandler(product)}
                     >
-                      Delete
+                      删除
                     </Button>
                   </td>
                 </tr>

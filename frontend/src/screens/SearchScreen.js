@@ -233,7 +233,7 @@ export default function SearchScreen() {
                   </div>
                 </Col>
                 <Col className="text-end">
-                  Sort by{' '}
+                  排序{' '}
                   <select
                     value={order}
                     onChange={(e) => {
@@ -248,7 +248,7 @@ export default function SearchScreen() {
                 </Col>
               </Row>
               {products.length === 0 && (
-                <MessageBox>No Product Found</MessageBox>
+                <MessageBox>暂无产品</MessageBox>
               )}
 
               <Row>

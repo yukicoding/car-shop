@@ -7,7 +7,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { StoreProvider } from './Store';
-
+import  axios from 'axios';
+axios.defaults.baseURL = "http://152.32.211.104:5000"
 ReactDOM.render(
   <React.StrictMode>
     <StoreProvider>

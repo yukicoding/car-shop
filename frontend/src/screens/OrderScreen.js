@@ -118,7 +118,7 @@ export default function OrderScreen() {
           }
         );
         dispatch({ type: 'PAY_SUCCESS', payload: data });
-        toast.success('Order is paid');
+        toast.success('订单已支付');
       } catch (err) {
         dispatch({ type: 'PAY_FAIL', payload: getError(err) });
         toast.error(getError(err));
@@ -201,8 +201,9 @@ export default function OrderScreen() {
                     headers: { authorization: `Bearer ${userInfo.token}` },
                   }
                 );
+                console.log("in")
                 dispatch({ type: 'PAY_SUCCESS', payload:data });
-                toast.success('Order is paid');
+                toast.success('订单已支付');
                 
               } catch (error) {
                 dispatch({ type: 'PAY_FAIL', payload: getError(error) });
@@ -237,7 +238,7 @@ export default function OrderScreen() {
         }
       );
       dispatch({ type: 'DELIVER_SUCCESS', payload: data });
-      toast.success('Order is delivered');
+      toast.success('订单已配送');
     } catch (err) {
       toast.error(getError(err));
       dispatch({ type: 'DELIVER_FAIL' });
@@ -386,7 +387,7 @@ console.log(order)
                     {loadingDeliver && <LoadingBox></LoadingBox>}
                     <div className="d-grid">
                       <Button variant="outline-primary" onClick={deliverOrderHandler}>
-                        Deliver Order
+                        配送商品
                       </Button>
                     </div>
                   </ListGroup.Item>

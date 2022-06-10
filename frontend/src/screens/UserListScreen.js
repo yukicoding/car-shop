@@ -90,9 +90,9 @@ export default function UserListScreen() {
   return (
     <div>
       <Helmet>
-        <title>Users</title>
+        <title>用户</title>
       </Helmet>
-      <h1>Users</h1>
+      <h1>用户</h1>
 
       {loadingDelete && <LoadingBox></LoadingBox>}
       {loading ? (
@@ -104,10 +104,10 @@ export default function UserListScreen() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>NAME</th>
-              <th>EMAIL</th>
-              <th>IS ADMIN</th>
-              <th>ACTIONS</th>
+              <th>姓名</th>
+              <th>邮箱</th>
+              <th>管理员</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody>
@@ -123,7 +123,7 @@ export default function UserListScreen() {
                     variant="light"
                     onClick={() => navigate(`/admin/user/${user._id}`)}
                   >
-                    Edit
+                    编辑
                   </Button>
                   &nbsp;
                   <Button
@@ -131,7 +131,7 @@ export default function UserListScreen() {
                     variant="light"
                     onClick={() => deleteHandler(user)}
                   >
-                    Delete
+                    删除
                   </Button>
                 </td>
               </tr>

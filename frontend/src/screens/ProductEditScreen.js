@@ -167,7 +167,7 @@ export default function ProductEditScreen() {
       ) : (
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>姓名</Form.Label>
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}

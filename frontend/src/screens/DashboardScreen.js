@@ -52,7 +52,7 @@ export default function DashboardScreen() {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      <h1>统计面板</h1>
       {loading ? (
         <LoadingBox />
       ) : error ? (
@@ -68,7 +68,7 @@ export default function DashboardScreen() {
                       ? summary.users[0].numUsers
                       : 0}
                   </Card.Title>
-                  <Card.Text> Users</Card.Text>
+                  <Card.Text> 用户</Card.Text>
                 </Card.Body>
               </Card>
             </Col>
@@ -80,7 +80,7 @@ export default function DashboardScreen() {
                       ? summary.orders[0].numOrders
                       : 0}
                   </Card.Title>
-                  <Card.Text> Orders</Card.Text>
+                  <Card.Text> 订单</Card.Text>
                 </Card.Body>
               </Card>
             </Col>
@@ -93,15 +93,15 @@ export default function DashboardScreen() {
                       ? summary.orders[0].totalSales.toFixed(2)
                       : 0}
                   </Card.Title>
-                  <Card.Text> Orders</Card.Text>
+                  <Card.Text> 总价</Card.Text>
                 </Card.Body>
               </Card>
             </Col>
           </Row>
           <div className="my-3">
-            <h2>Sales</h2>
+            <h2>销量</h2>
             {summary.dailyOrders.length === 0 ? (
-              <MessageBox>No Sale</MessageBox>
+              <MessageBox>暂无</MessageBox>
             ) : (
               <Chart
                 width="100%"

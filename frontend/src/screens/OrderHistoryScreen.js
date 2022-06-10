@@ -65,11 +65,11 @@ export default function OrderHistoryScreen() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th>ACTIONS</th>
+              <th>创建日期</th>
+              <th>总价</th>
+              <th>支付日期</th>
+              <th>配送情况</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody>
@@ -92,7 +92,7 @@ export default function OrderHistoryScreen() {
                       navigate(`/order/${order._id}`);
                     }}
                   >
-                    Details
+                    详情
                   </Button>
                 </td>
               </tr>

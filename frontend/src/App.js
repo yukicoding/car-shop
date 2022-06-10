@@ -85,7 +85,7 @@ function App() {
               </Button>
 
               <LinkContainer to="/">
-                <Navbar.Brand>商城</Navbar.Brand>
+                <Navbar.Brand>啥都卖商城</Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
@@ -113,27 +113,27 @@ function App() {
                         to="#signout"
                         onClick={signoutHandler}
                       >
-                        Sign Out
+                        退出
                       </Link>
                     </NavDropdown>
                   ) : (
                     <Link className="nav-link" to="/signin">
-                      Sign In
+                      登录
                     </Link>
                   )}
                   {userInfo && userInfo.isAdmin && (
                     <NavDropdown title="Admin" id="admin-nav-dropdown">
                       <LinkContainer to="/admin/dashboard">
-                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                        <NavDropdown.Item>统计面板</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/products">
-                        <NavDropdown.Item>Products</NavDropdown.Item>
+                        <NavDropdown.Item>商品管理</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/orders">
-                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                        <NavDropdown.Item>订单管理</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/users">
-                        <NavDropdown.Item>Users</NavDropdown.Item>
+                        <NavDropdown.Item>用户管理</NavDropdown.Item>
                       </LinkContainer>
                     </NavDropdown>
                   )}

@@ -70,13 +70,13 @@ export default function OrderListScreen() {
   }, [userInfo, successDelete]);
 
   const deleteHandler = async (order) => {
-    if (window.confirm('Are you sure to delete?')) {
+    if (window.confirm('你确定要删除吗?')) {
       try {
         dispatch({ type: 'DELETE_REQUEST' });
         await axios.delete(`/api/orders/${order._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
-        toast.success('order deleted successfully');
+        toast.success('订单删除成功');
         dispatch({ type: 'DELETE_SUCCESS' });
       } catch (err) {
         toast.error(getError(error));
@@ -90,9 +90,9 @@ export default function OrderListScreen() {
   return (
     <div>
       <Helmet>
-        <title>Orders</title>
+        <title>订单</title>
       </Helmet>
-      <h1>Orders</h1>
+      <h1>订单</h1>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -103,12 +103,12 @@ export default function OrderListScreen() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>USER</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th>ACTIONS</th>
+              <th>用户</th>
+              <th>创建日期</th>
+              <th>总价</th>
+              <th>支付情况</th>
+              <th>配送情况</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody>
@@ -133,7 +133,7 @@ export default function OrderListScreen() {
                       navigate(`/order/${order._id}`);
                     }}
                   >
-                    Details
+                    详情
                   </Button>
                   &nbsp;
                   <Button
@@ -141,7 +141,7 @@ export default function OrderListScreen() {
                     variant="light"
                     onClick={() => deleteHandler(order)}
                   >
-                    Delete
+                    删除
                   </Button>
                 </td>
               </tr>
