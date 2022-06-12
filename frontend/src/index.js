@@ -8,7 +8,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { StoreProvider } from './Store';
 import  axios from 'axios';
-axios.defaults.baseURL = "http://152.32.211.104:5000"
+axios.defaults.baseURL = process.env.NODE_ENV==="production"?"http://152.32.211.104:5000":"http://localhost:5000"
 ReactDOM.render(
   <React.StrictMode>
     <StoreProvider>
