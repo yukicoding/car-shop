@@ -7,7 +7,10 @@ import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-// import data from '../data';
+import Pagination from 'react-bootstrap/Pagination'
+
+
+
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -28,21 +31,30 @@ function HomeScreen() {
     loading: true,
     error: '',
   });
-  // const [products, setProducts] = useState([]);
+  let items = [];
+const [activePage,setActivePage] = useState(1);
+const [totalPage,setTotalPage] = useState(0);
+for (let number = 1; number <= totalPage; number++) {
+  items.push(
+    <Pagination.Item key={number} active={number === activePage} onClick={()=>setActivePage(number)}>
+      {number}
+    </Pagination.Item>,
+  );
+}
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get('/api/products');
-        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+        const result = await axios.get(`/api/products?page=${activePage}&row=${8}`);
+        setTotalPage(result.data.pageTotal);
+        dispatch({ type: 'FETCH_SUCCESS', payload: result.data.productList });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: err.message });
       }
-
-      // setProducts(result.data);
     };
     fetchData();
-  }, []);
+  }, [activePage]);
   return (
     <div>
       <Helmet>
@@ -63,6 +75,7 @@ function HomeScreen() {
             ))}
           </Row>
         )}
+        <Pagination >{items}</Pagination>
       </div>
     </div>
   );

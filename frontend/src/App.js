@@ -266,7 +266,7 @@ function App() {
           </Container>
         </main>
         <footer>
-          <div className="text-center">All rights reserved</div>
+          <div className="text-center">@copyRight 该项目主要为了期末作业</div>
         </footer>
       </div>
     </BrowserRouter>

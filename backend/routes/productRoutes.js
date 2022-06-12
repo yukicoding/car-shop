@@ -6,8 +6,19 @@ import { isAuth, isAdmin } from '../utils.js';
 const productRouter = express.Router();
 
 productRouter.get('/', async (req, res) => {
-  const products = await Product.find();
-  res.send(products);
+  console.log(req.query)
+  const page = req.query.page;
+  const rows = req.query.row;
+  const query = Product.find();
+  query.skip((page-1)*rows);
+  query.limit(rows);
+  const total = await Product.find({}).countDocuments();
+  query.exec((err,result)=>{
+    if(err) return res.send(err);
+    res.send({productList:result,pageTotal:Math.ceil(total/8)})
+  })
+  // const products = await Product.find();
+  // res.send(products);
 });
 
 productRouter.post(
