@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-# this is a online shop for assignment.
-测试提交
-=======
 
 
 ## 项目简介
@@ -50,13 +46,3 @@ To deploy this project run
 ```bash
   npm run start
 ```
-
-
-## Used By
-
-This project is used by the following companies:
-
-- Company 1
-- Company 2
-
->>>>>>> Stashed changes
