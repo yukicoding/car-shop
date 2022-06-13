@@ -53,7 +53,7 @@ export default function SignupScreen() {
       <Helmet>
         <title>Sign Up</title>
       </Helmet>
-      <h1 className="my-3">Sign Up</h1>
+      <h1 className="my-3">注册</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>姓名</Form.Label>
@@ -85,11 +85,11 @@ export default function SignupScreen() {
           </Form.Group>
         </Form.Group>
         <div className="mb-3">
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit">注册</Button>
         </div>
         <div className="mb-3">
          已经有账号了？
-          <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
+          <Link to={`/signin?redirect=${redirect}`}>登录</Link>
         </div>
       </Form>
     </Container>

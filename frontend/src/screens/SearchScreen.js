@@ -142,7 +142,7 @@ export default function SearchScreen() {
                   className={'all' === category ? 'text-bold' : ''}
                   to={getFilterUrl({ category: 'all' })}
                 >
-                  Any
+                  所有
                 </Link>
               </li>
               {categories.map((c) => (
@@ -165,7 +165,7 @@ export default function SearchScreen() {
                   className={'all' === price ? 'text-bold' : ''}
                   to={getFilterUrl({ price: 'all' })}
                 >
-                  Any
+                  所有
                 </Link>
               </li>
               {prices.map((p) => (
