@@ -46,7 +46,7 @@ export default function CartScreen() {
         <Col md={8}>
           {cartItems.length === 0 ? (
             <MessageBox>
-             购物车为空. <Link to="/">Go Shopping</Link>
+             购物车为空. <Link to="/">添加商品</Link>
             </MessageBox>
           ) : (
             <ListGroup>
@@ -82,7 +82,7 @@ export default function CartScreen() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>${item.price}</Col>
+                    <Col md={3}>￥{item.price}</Col>
                     <Col md={2}>
                       <Button
                         onClick={() => removeItemHandler(item)}
@@ -104,7 +104,7 @@ export default function CartScreen() {
                 <ListGroup.Item>
                   <h3>
                     总价 ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    个) : $
+                    个) : ￥
                     {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                   </h3>
                 </ListGroup.Item>

@@ -145,7 +145,7 @@ function ProductScreen() {
                 numReviews={product.numReviews}
               ></Rating>
             </ListGroup.Item>
-            <ListGroup.Item>价格 : ${product.price}</ListGroup.Item>
+            <ListGroup.Item>价格 : ￥{product.price}</ListGroup.Item>
             <ListGroup.Item>
               <Row xs={1} md={2} className="g-2">
                 {[product.image, ...product.images].map((x) => (
@@ -177,7 +177,7 @@ function ProductScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>价格:</Col>
-                    <Col>${product.price}</Col>
+                    <Col>￥{product.price}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -229,13 +229,13 @@ function ProductScreen() {
             <form onSubmit={submitHandler}>
               <h2>写评价</h2>
               <Form.Group className="mb-3" controlId="rating">
-                <Form.Label>Rating</Form.Label>
+                <Form.Label>评分</Form.Label>
                 <Form.Select
                   aria-label="Rating"
                   value={rating}
                   onChange={(e) => setRating(e.target.value)}
                 >
-                  <option value="">Select...</option>
+                  <option value="">选择评分...</option>
                   <option value="1">1- 垃圾</option>
                   <option value="2">2- 一般</option>
                   <option value="3">3- 不错</option>
@@ -245,7 +245,7 @@ function ProductScreen() {
               </Form.Group>
               <FloatingLabel
                 controlId="floatingTextarea"
-                label="Comments"
+                label="评论"
                 className="mb-3"
               >
                 <Form.Control

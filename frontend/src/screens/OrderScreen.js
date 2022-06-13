@@ -254,7 +254,7 @@ console.log(order)
       <Helmet>
         <title>Order {orderId}</title>
       </Helmet>
-      <h1 className="my-3">Order {orderId}</h1>
+      <h1 className="my-3">订单号： {orderId}</h1>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
@@ -319,7 +319,7 @@ console.log(order)
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>${item.price}</Col>
+                      <Col md={3}>￥{item.price}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -335,19 +335,19 @@ console.log(order)
                 <ListGroup.Item>
                   <Row>
                     <Col>物品</Col>
-                    <Col>${order.itemsPrice.toFixed(2)}</Col>
+                    <Col>￥{order.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>运费</Col>
-                    <Col>${order.shippingPrice.toFixed(2)}</Col>
+                    <Col>￥{order.shippingPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>税费</Col>
-                    <Col>${order.taxPrice.toFixed(2)}</Col>
+                    <Col>￥{order.taxPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -356,7 +356,7 @@ console.log(order)
                       <strong>订单总价</strong>
                     </Col>
                     <Col>
-                      <strong>${order.totalPrice.toFixed(2)}</strong>
+                      <strong>￥{order.totalPrice.toFixed(2)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
