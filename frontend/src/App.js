@@ -85,7 +85,7 @@ function App() {
               </Button>
 
               <LinkContainer to="/">
-                <Navbar.Brand>啥都卖商城</Navbar.Brand>
+                <Navbar.Brand>松田车城</Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
@@ -266,7 +266,9 @@ function App() {
           </Container>
         </main>
         <footer>
-          <div className="text-center">@copyRight 该项目主要为了期末作业</div>
+          <div className="text-center">@copyRight 该项目为Nosql大作业</div>
+          <div className="text-center">作者：黄永琪，方蔚源，涂浩均，林思莹</div>
+
         </footer>
       </div>
     </BrowserRouter>

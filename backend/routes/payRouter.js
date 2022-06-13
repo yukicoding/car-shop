@@ -19,7 +19,6 @@ const alipaySdk = new AlipaySdk({
 payRouter.post('/pcpay', expressAsyncHandler((req, res) => {
     
     (async () => {        // 调用 setMethod 并传入 get，会返回可以跳转到支付页面的 url
-      console.log(req.body)
         const {_id,orderItems,itemsPrice,totalPrice}  = req.body
         const formData = new AlipayFormData();
         formData.setMethod('get');
