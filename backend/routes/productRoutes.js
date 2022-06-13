@@ -6,7 +6,6 @@ import { isAuth, isAdmin } from '../utils.js';
 const productRouter = express.Router();
 
 productRouter.get('/', async (req, res) => {
-  console.log(req.query)
   const page = req.query.page;
   const rows = req.query.row;
   const query = Product.find();
@@ -27,16 +26,16 @@ productRouter.post(
   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newProduct = new Product({
-      name: 'sample name ' + Date.now(),
-      slug: 'sample-name-' + Date.now(),
-      image: '/images/p1.jpg',
+      name: '某名 ' + Date.now(),
+      slug: '某名' + Date.now(),
+      image: '/images/p1.png',
       price: 0,
-      category: 'sample category',
-      brand: 'sample brand',
+      category: ' 某种类 ',
+      brand: ' 某品牌 ',
       countInStock: 0,
       rating: 0,
       numReviews: 0,
-      description: 'sample description',
+      description: '这是新建商品模板',
     });
     const product = await newProduct.save();
     res.send({ message: 'Product Created', product });

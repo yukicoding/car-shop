@@ -4,6 +4,7 @@ import Order from '../models/orderModel.js';
 import User from '../models/userModel.js';
 import Product from '../models/productModel.js';
 import { isAuth, isAdmin, mailgun, payOrderEmailTemplate } from '../utils.js';
+import mongoose from 'mongoose'
 
 
 const orderRouter = express.Router();
@@ -22,19 +23,54 @@ orderRouter.post(
   '/',
   isAuth,
   expressAsyncHandler(async (req, res) => {
-    const newOrder = new Order({
-      orderItems: req.body.orderItems.map((x) => ({ ...x, product: x._id })),
-      shippingAddress: req.body.shippingAddress,
-      paymentMethod: req.body.paymentMethod,
-      itemsPrice: req.body.itemsPrice,
-      shippingPrice: req.body.shippingPrice,
-      taxPrice: req.body.taxPrice,
-      totalPrice: req.body.totalPrice,
-      user: req.user._id,
-    });
-
-    const order = await newOrder.save();
+    let orderItems = req.body.orderItems.map((x) => ({ ...x, product: x._id }))
+    function formatOrdersItem(orderItems) {
+      let result = [];
+      orderItems.forEach((item)=>{
+        result.push({_id:item._id})
+      })
+      return result;
+    }
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    try {
+      const filterArr = formatOrdersItem(orderItems);
+      const newOrder = new Order({
+        orderItems,
+        shippingAddress: req.body.shippingAddress,
+        paymentMethod: req.body.paymentMethod,
+        itemsPrice: req.body.itemsPrice,
+        shippingPrice: req.body.shippingPrice,
+        taxPrice: req.body.taxPrice,
+        totalPrice: req.body.totalPrice,
+        user: req.user._id,
+      });
+      let product = await Product.find({$or:[...filterArr]},null,{session});
+      let isSuccess = product.every((item)=>item.countInStock>0);
+      if(!isSuccess) throw Error("未知错误导致购买失败，请联系客服");
+      const order = await newOrder.save();
     res.status(201).send({ message: 'New Order Created', order });
+    await session.commitTransaction();
+    } catch (error) {
+       // Rollback any changes made in the database
+    await session.abortTransaction();
+
+    // logging the error
+    console.error(error);
+
+    // Rethrow the error
+    throw error;
+    }finally {
+      // Ending the session
+      session.endSession();
+    }
+   
+    // orderItems.forEach( (item)=>{
+    //   let product = await Product.find({_id:item._id})
+    //   console.log(product)
+    //   result.push(...product)
+    // })
+
   })
 );
 
