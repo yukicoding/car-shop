@@ -28,7 +28,7 @@ productRouter.post(
     const newProduct = new Product({
       name: '某名 ' + Date.now(),
       slug: '某名' + Date.now(),
-      image: '/images/p1.png',
+      image: 'https://res.cloudinary.com/dvapzzbdg/image/upload/v1655186332/qa2zo9zvzffko8kxxoji.png',
       price: 0,
       category: ' 某种类 ',
       brand: ' 某品牌 ',
